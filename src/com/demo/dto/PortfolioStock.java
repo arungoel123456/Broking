@@ -4,6 +4,11 @@ public class PortfolioStock {
     private int quantity;
     private double averagePrice;
 
+    public PortfolioStock(int quantity, double averagePrice) {
+        this.quantity = quantity;
+        this.averagePrice = averagePrice;
+    }
+
     public void changeQuantity(int quantity){
         this.quantity += quantity;
         return;
@@ -14,5 +19,17 @@ public class PortfolioStock {
     }
     public int getQuantity(){
         return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getAveragePrice() {
+        return averagePrice;
+    }
+
+    public void setAveragePrice(double averagePrice) {
+        this.averagePrice = averagePrice;
     }
 }

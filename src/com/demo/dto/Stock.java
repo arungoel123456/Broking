@@ -4,7 +4,11 @@ public class Stock {
     public String id;
     private int price;
 
-    public Stock(){}
+    public Stock(String id, int price) {
+        this.id = id;
+        this.price = price;
+    }
+
 
     public void setPrice(int price){
         this.price= price;

@@ -2,9 +2,10 @@ package com.demo.dto;
 
 import java.util.*;
 
-public abstract class Notification {
-    private String notificationId;
-    private Date creationDate;
+public class Notification {
     private String description;
-    public abstract boolean sendNotification();
+
+    public Notification(String description) {
+        this.description = description;
+    }
 }

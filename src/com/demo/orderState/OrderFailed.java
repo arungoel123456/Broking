@@ -3,15 +3,22 @@ package com.demo.orderState;
 
 import com.demo.dto.*;
 import com.demo.enums.*;
+import com.demo.interfaces.*;
+import com.demo.services.*;
 
 public class OrderFailed extends OrderState {
+
+    public OrderFailed() {
+        super(new SmsNotificationImpl());
+    }
+
     @Override
     public void notifyUsers(User user, ErrorCode errorCode) {
         if(errorCode == ErrorCode.INSUFFICIENT_BALANCE){
-            // notify users of insufficient balance;
+            notificationService.sendNotification("Insufficient balance:  " , user);
         }
         else if(errorCode == ErrorCode.NO_STOCK_POSITIONS){
-            // notify users of insufficient stock options
+            notificationService.sendNotification("NO_STOCK_POSITIONS:  " , user);
         }
     }
 }

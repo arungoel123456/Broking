@@ -1,6 +1,7 @@
 package com.demo.dto;
 
 import com.demo.enums.*;
+import com.demo.orderState.*;
 
 public class Order {
     private String stockId;
@@ -9,6 +10,7 @@ public class Order {
     public boolean isLimitOrder; // type
     private double price;
     private User user;
+    private OrderState orderState;
 
     public Order(String stockId, OrderType orderType, int qty, boolean isLimitOrder, User user) {
         this.stockId = stockId;
@@ -16,6 +18,7 @@ public class Order {
         this.qty = qty;
         this.isLimitOrder = isLimitOrder;
         this.user = user;
+        this.orderState= new OrderInProgress();
     }
 
     public String getStockId() {
@@ -64,5 +67,16 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(OrderState orderState) {
+        this.orderState = orderState;
+    }
+    public void notify(ErrorCode errorCode){
+        this.orderState.notifyUsers(user, errorCode);
     }
 }

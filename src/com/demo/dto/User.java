@@ -1,6 +1,7 @@
 package com.demo.dto;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class User {
     private String id;
@@ -9,6 +10,14 @@ public class User {
     private List<Stock> watchList;
     private Portfolio portfolio;
     private Map<String, Order> activeOrders;
+
+    public User(String name) {
+        this.name = name;
+        fund=0;
+        watchList= new ArrayList<>();
+        portfolio= new Portfolio(name);
+        activeOrders= new HashMap<>();
+    }
 
     public String getId() {
         return id;
@@ -33,6 +42,9 @@ public class User {
     public void setFund(double fund) {
         this.fund = fund;
     }
+    public void changeFund(double change){
+        this.fund+= change;
+    }
 
     public List<Stock> getWatchList() {
         return watchList;
@@ -56,5 +68,18 @@ public class User {
 
     public void setActiveOrders(Map<String, Order> activeOrders) {
         this.activeOrders = activeOrders;
+    }
+    public boolean checkFund(double amount){
+        return amount<=fund;
+    }
+    public boolean checkStockInPortfolio(String stockId, int qty)
+    {
+        Stock s= watchList.stream().filter( stock -> stock.getId().equals(stockId)).collect(Collectors.toList()).get(0);
+
+        return portfolio.checkIfPresent(s, qty);
+    }
+    public void changePortfolio(Order order){
+        Stock s= watchList.stream().filter( stock -> stock.getId().equals(order.getStockId())).collect(Collectors.toList()).get(0);
+        this.portfolio.changePortfolio(order, s);
     }
 }
